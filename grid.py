@@ -29,6 +29,9 @@ class Grid:
 		self.populate_grid(place_x, place_y, 1)
 		return place_x, place_y
 
+	def current_pos(self,x_pos, y_pos):
+		self.populate_grid(x_pos,y_pos, 'C')
+		
 	def set_goal(self):
 		goal_x = int(raw_input("Set x coordinate of goal: ")) -1
 		goal_y = int(raw_input("Set y coordinate of goal: ")) -1
@@ -49,6 +52,9 @@ class Grid:
 
 	def populate_grid(self, pos_x,pos_y, character):
 		try:
+			if self.grid[pos_x][pos_y]!='0':
+				print "cannot place a block here, exiting"	
+				exit(0)	
 			self.grid[pos_x][pos_y] = character
 
 		except  Exception as error:
