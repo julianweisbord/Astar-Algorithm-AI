@@ -12,7 +12,7 @@ class Grid:
 			self.grid.append([])
 			for j in range(y):
 				self.grid[i].append(0)
-		print self.grid
+		print (self.grid)
 
 		self.goal_x, self.goal_y = self.set_goal()
 		self.start_x, self.start_y = self.set_start()
@@ -31,7 +31,7 @@ class Grid:
 
 	def current_pos(self,x_pos, y_pos):
 		self.populate_grid(x_pos,y_pos, 'C')
-		
+
 	def set_goal(self):
 		goal_x = int(raw_input("Set x coordinate of goal: ")) -1
 		goal_y = int(raw_input("Set y coordinate of goal: ")) -1
@@ -44,6 +44,20 @@ class Grid:
 		self.populate_grid(start_x, start_y, 'S')
 		return start_x, start_y
 
+	#Calculates the nth position from x and y coordinates
+	def calc_pos_grid(self,x, y):
+		assert(x <=self.x & y <= self.y)
+
+		position =1
+		count_cols = 1
+		count_rows =1
+		while count_cols < y:
+			position += self.y #increase position by length of each row
+			count_cols+=1
+		while count_rows < x:
+			position+=1
+			count_rows+=1
+		print ("position is: ", position)
 
 	def print_grid(self):
 		print "Here is the grid: "
@@ -52,11 +66,11 @@ class Grid:
 
 	def populate_grid(self, pos_x,pos_y, character):
 		try:
-			if self.grid[pos_x][pos_y]!='0':
-				print "cannot place a block here, exiting"	
-				exit(0)	
+			if self.grid[pos_x][pos_y]!=0:
+				print ("cannot place a block here, exiting")
+				exit(0)
 			self.grid[pos_x][pos_y] = character
-
+			self.calc_pos_grid(pos_x, pos_y)# single number for position
 		except  Exception as error:
 			print error
 			exit(0)
