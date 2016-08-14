@@ -1,22 +1,17 @@
 import grid
 import heapq
 
-class Queue:
-	frontier = []#Discovered nodes that must be evaluated
-
-	def __init__(self):
-		pass
 
 class Graph:
 
-	def __init__(self)
+	def __init__(self):
 		self.edges ={}
 
 
 
 class Astar:
-
-	closedSet = [] #nodes already evaluated
+	frontier = []#Discovered nodes that must be evaluated
+	closedSet = {} #nodes already evaluated
 	g_score = {}
 
 	def __init__(self,start, goal):
@@ -29,6 +24,11 @@ class Astar:
 
 
 
-	#manhattan
+	#manhattan heuristic
 	def heuristic(a,b):
+		x1,y1 =a
+		x2, y2 =b
+		return abs(x2-x1) + abs(y2-y1)
+
+	def astar_search():
 		pass

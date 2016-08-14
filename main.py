@@ -11,7 +11,7 @@ def main():
         #matrix.place_block()
 
     #instantiate astar class
-    alg = astar.Astar(matrix.calc_pos_grid(matrix.goal_x, matrix.goal_y))
+    #alg = astar.Astar(matrix.calc_pos_grid(matrix.goal_x, matrix.goal_y))
 
     return 0
 
