@@ -23,14 +23,20 @@ class Grid:
 		y = int(raw_input("Enter grid cols: "))
 		return x, y
 
+
+	def neighbors():
+		pass
+
+
 	def place_block(self):
 		place_x = int(raw_input("Set x coordinate of block: "))
 		place_y = int(raw_input("Set y coordinate of block: "))
 		self.populate_grid(place_x, place_y, 1)
+		#call a function to make sure that it is possible to find the path
 		return place_x, place_y
 
-	def current_pos(self,x_pos, y_pos):
-		self.populate_grid(x_pos,y_pos, 'C')
+	#def current_pos(self,x_pos, y_pos):
+		#self.populate_grid(x_pos,y_pos, 'C')
 
 	def set_goal(self):
 		goal_x = int(raw_input("Set x coordinate of goal: "))
@@ -61,7 +67,7 @@ class Grid:
 		print ("position is: ", position)
 
 
-	def print_grid(self):
+	def draw_grid(self):
 		print "Here is the grid: "
 		for colIndex in range(self.row):
 			print str(self.grid[colIndex]).strip('[').strip(']')
