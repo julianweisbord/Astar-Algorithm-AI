@@ -7,6 +7,7 @@ class Astar:
 	closedSet = {} #nodes already evaluated
 	g_score = {}
 
+
 	def __init__(self,start, goal):
 
 		self.start = start
@@ -18,10 +19,10 @@ class Astar:
 
 
 	#manhattan heuristic
-	def heuristic(a,b):
+	def heuristic(self,a,b):
 		x1,y1 =a
 		x2, y2 =b
 		return abs(x2-x1) + abs(y2-y1)
 
-	def astar_search():
+	def astar_search(self,graph, start, goal):
 		pass

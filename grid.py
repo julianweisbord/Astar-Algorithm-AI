@@ -13,7 +13,7 @@ class Grid:
 		for i in range(self.row):
 			self.grid.append([])
 			for j in range(self.col):
-				self.grid[i].append(0)
+				self.grid[i].append('0')
 		print (self.grid)
 
 		self.goal_x, self.goal_y = self.set_goal()
@@ -25,15 +25,29 @@ class Grid:
 		y = int(raw_input("Enter grid cols: "))
 		return x, y
 
+	#Put adgacent values in dictionary
+	#add diagnols later
+	def neighbors(self,position_list):
+		edges = {}
+		x,y = position_list
+		assert(x!= None and y!= None)
 
-	def neighbors(self):
-		pass
+		if self.grid[y+1][x] != None:
+			egdes[up] = self.grid[y+1][x]
+		if self.grid[y][x+1] != None:
+			egdes[right] = self.grid[y][x+1]
+		if self.grid[y][x-1] != None:
+			egdes[left] = self.grid[y][x-1]
+		if self.grid[y-1][x] != None:
+			egdes[down] = self.grid[y-1][x]
 
+		print("Edges dictonary: ", edges)
+		return edges
 
 	def place_block(self):
 		place_x = int(raw_input("Set x coordinate of block: "))
 		place_y = int(raw_input("Set y coordinate of block: "))
-		self.populate_grid(place_x, place_y, 1)
+		self.populate_grid(place_x, place_y, '1')
 		#call a function to make sure that it is possible to find the path
 		return place_x, place_y
 
@@ -70,13 +84,13 @@ class Grid:
 
 
 	def draw_grid(self):
-		print "Here is the grid: "
+		print "Here is the grid: \n"
 		for colIndex in range(self.row):
 			print str(self.grid[colIndex]).strip('[').strip(']')
 
 	def populate_grid(self, pos_x,pos_y, character):
 		try:
-			if self.grid[pos_y-1][pos_x-1]!=0:
+			if self.grid[pos_y-1][pos_x-1]!='0':
 				print ("cannot place a block here, exiting")
 				exit(0)
 			self.grid[pos_y-1][pos_x-1] = character
