@@ -2,13 +2,6 @@ import grid
 import heapq
 
 
-class Graph:
-
-	def __init__(self):
-		self.edges ={}
-
-
-
 class Astar:
 	frontier = []#Discovered nodes that must be evaluated
 	closedSet = {} #nodes already evaluated

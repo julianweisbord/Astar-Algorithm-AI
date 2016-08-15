@@ -2,8 +2,10 @@
 class Grid:
 
 	grid = []
+	edges = {}
 
 	def __init__(self):
+
 		x,y = self.init_grid()
 		self.row =x
 		self.col = y
@@ -24,7 +26,7 @@ class Grid:
 		return x, y
 
 
-	def neighbors():
+	def neighbors(self):
 		pass
 
 
