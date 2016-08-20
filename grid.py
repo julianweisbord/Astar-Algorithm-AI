@@ -1,3 +1,5 @@
+#Distance global variable
+BLOCK_DIST = 1
 
 class Grid:
 
@@ -41,23 +43,30 @@ class Grid:
 		if self.grid[y-1][x] != None:
 			egdes[down] = self.grid[y-1][x]
 		#add diagnols
-		if self.grid[y+1][x+1] != None:
-			edges[NE] = self.grid[y+1][x+1]
-		if self.grid[y+1][x-1] != None:
-			edges[NW] =self.grid[y+1][x-1]
-		if self.grid[y-1][x-1] != None:
-			edges[SW] =self.grid[y-1][x-1]
-		if self.grid[y-1][x+1] != None:
-			edges[SE] =self.grid[y-1][x+1]
-
+		# if self.grid[y+1][x+1] != None:
+		# 	edges[NE] = self.grid[y+1][x+1]
+		# if self.grid[y+1][x-1] != None:
+		# 	edges[NW] =self.grid[y+1][x-1]
+		# if self.grid[y-1][x-1] != None:
+		# 	edges[SW] =self.grid[y-1][x-1]
+		# if self.grid[y-1][x+1] != None:
+		# 	edges[SE] =self.grid[y-1][x+1]
 
 		print("Edges dictonary: ", edges)
 		return edges
 
+	def cost(self, cur_pos, next_pos):
+		# doesn't have functionality for diagnols
+		x1, y1 = cur_pos
+		x2, y2 = next_pos
+		return BLOCK_DIST *(abs(x2 - x1) + abs(y2 -y1))
+
+
+
 	def place_block(self):
 		place_x = int(raw_input("Set x coordinate of block: "))
 		place_y = int(raw_input("Set y coordinate of block: "))
-		self.populate_grid(place_x, place_y, '1')
+		self.populate_grid(place_x, place_y, 'X')
 		#call a function to make sure that it is possible to find the path
 		return place_x, place_y
 
@@ -109,3 +118,13 @@ class Grid:
 		except Exception as error:
 			print ("error: ", error)
 			exit(0)
+			
+	#Places a dot on the grid to show the astar path
+	def place_path(xylocation):
+		x,y = xylocation
+		assert(self.grid[pos_y-1][pos_x-1]!='X')
+		if self.grid[y-1][x-1] == 'G':
+			print("Found Goal!")
+			return
+		else:
+			self.grid[y-1][x-1] = '.'

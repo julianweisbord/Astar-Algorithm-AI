@@ -1,9 +1,13 @@
 import grid
 import heapq
 
+# A* Algorithm:
+#f(n) = g(n) + h(n) where g(n) represents the cost of a node n from the start,
+# and h(n) represents the heuristic's estimated cost from the current node n
+# to the goal
 
 class Astar:
-	frontier = []#Discovered nodes that must be evaluated, list of nodes
+	frontier = []#Discovered nodes that must be evaluated, list of node lists
 	closedSet = {} #nodes already evaluated
 	g_score = {} #node is key, cost is value
 
@@ -19,14 +23,27 @@ class Astar:
 
 
 
-	#manhattan heuristic
-	def heuristic(self,a,b):
-		x1,y1 =a
-		x2, y2 =b
-		return abs(x2-x1) + abs(y2-y1)
+	#Adjusted manhattan heuristic
+	def heuristic(self,start,goal, current):
+		start_x,start_y =start
+		goal_x, goal_y =goal
+		cur_x,cur_y = current
 
+		manhattan = abs(goal_x - start_x) + abs(goal_y - start_y)
+		#Adjusted for tie breakers, heuristic will favor straight line paths to goal
+		#change in position
+		dx1= goal_x - cur_x
+		dy1= goal_y -cur_y
+		dx2= goal_x - start_x
+		dy2= goal_y -start_y
+		cross = abs(dx1*dy2 - dy1*dx2)
+
+		return (manhattan += cross*.0001)
+
+	# Examines which vertex has the lowest f(n) = g(n) + h(n)
 	def astar_search(self,graph, start, goal):
-		pass
+		current = heapq.heappop(self.frontier)
+		print("Should be start val: ", current)
 
- def cost(self, from_node, to_node):
-        return self.weights.get(to_node, 1)
+		while self.frontier.len() >0:
+			pass
