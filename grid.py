@@ -26,7 +26,7 @@ class Grid:
 		return x, y
 
 	#Put adgacent values in dictionary
-	#add diagnols later
+
 	def neighbors(self,position_list):
 		edges = {}
 		x,y = position_list
@@ -40,6 +40,16 @@ class Grid:
 			egdes[left] = self.grid[y][x-1]
 		if self.grid[y-1][x] != None:
 			egdes[down] = self.grid[y-1][x]
+		#add diagnols
+		if self.grid[y+1][x+1] != None:
+			edges[NE] = self.grid[y+1][x+1]
+		if self.grid[y+1][x-1] != None:
+			edges[NW] =self.grid[y+1][x-1]
+		if self.grid[y-1][x-1] != None:
+			edges[SW] =self.grid[y-1][x-1]
+		if self.grid[y-1][x+1] != None:
+			edges[SE] =self.grid[y-1][x+1]
+
 
 		print("Edges dictonary: ", edges)
 		return edges

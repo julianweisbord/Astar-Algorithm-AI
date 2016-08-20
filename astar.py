@@ -3,9 +3,9 @@ import heapq
 
 
 class Astar:
-	frontier = []#Discovered nodes that must be evaluated
+	frontier = []#Discovered nodes that must be evaluated, list of nodes
 	closedSet = {} #nodes already evaluated
-	g_score = {}
+	g_score = {} #node is key, cost is value
 
 
 	def __init__(self,start, goal):
@@ -13,7 +13,8 @@ class Astar:
 		self.start = start
 		self.goal = goal
 
-		self.frontier.append(start)
+		heapq.heapify(self.frontier)
+		heapq.push(self.frontier, start)
 		self.g_score[start] =0
 
 
@@ -26,3 +27,6 @@ class Astar:
 
 	def astar_search(self,graph, start, goal):
 		pass
+
+ def cost(self, from_node, to_node):
+        return self.weights.get(to_node, 1)
