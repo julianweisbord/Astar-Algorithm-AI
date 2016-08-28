@@ -9,7 +9,7 @@ import heapq
 class Astar:
 	frontier = []#Discovered nodes that must be evaluated, list of node lists
 	closedSet = {} #nodes already evaluated
-	g_score = {} #node is key, cost is value
+	cost = {} #vertex is key, cost is value
 
 
 	def __init__(self,start, goal):
@@ -18,13 +18,15 @@ class Astar:
 		self.goal = goal
 
 		heapq.heapify(self.frontier)
-		heapq.push(self.frontier, start)
-		self.g_score[start] =0
+		heapq.push(self.frontier, (0, start)) # Heapq can take tuples for priority (priority, task)
+		self.node_cost[start] =0
 
 
 
 	#Adjusted manhattan heuristic
 	def heuristic(self,startArr,goalArr, current):
+		print(current)
+
 		start_x,start_y =startArr
 		goal_x, goal_y =goalArr
 		cur_x,cur_y = current
@@ -42,7 +44,7 @@ class Astar:
 
 	# Examines which vertex has the lowest f(n) = g(n) + h(n)
 	def astar_search(self,graph, start, goal):
-		current = heapq.heappop(self.frontier)
+		current = heapq.heappop(self.frontier)[1]
 		print("Should be start val: ", current)
 
 		while self.frontier.len() >0:
@@ -51,4 +53,5 @@ class Astar:
 			if foundGoal == True:
 				break
 
-				
+			for vertex in graph.neighbors(current):
+				pass

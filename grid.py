@@ -73,18 +73,7 @@ class Grid:
 	def set_cur_pos(self,cur_pos):
 		x_pos, y_pos = cur_pos
 		validPos = self.populate_grid(x_pos,y_pos, 'C')
-		# try: # The following is untested!!!!!!!!!!!!!!!!!!1
-		# 	if validPos == True:
-		# 		for i in range self.row:
-		# 			for j in range self.col:
-		# 				if i != x_pos and j != y_pos:
-		# 					if self.grid[j][i] == 'C':
-		#
-		#
-		# 	else:
-		# 		print("Error with placement!!!!!!!!")
-		# except Exception as Err:
-		# 	print("Error", Err)
+	
 
 	def set_goal(self):
 		goal_x = int(raw_input("Set x coordinate of goal: "))

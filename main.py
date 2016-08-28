@@ -1,9 +1,10 @@
 import grid
 import astar
 
-# References:
+# Algorithm References:
 # http://www.redblobgames.com/pathfinding/a-star
 # http://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
+# https://en.wikipedia.org/wiki/A*_search_algorithm
 
 def main():
     matrix = grid.Grid()
