@@ -61,8 +61,6 @@ class Grid:
 		x2, y2 = next_pos
 		return BLOCK_DIST *(abs(x2 - x1) + abs(y2 -y1))
 
-
-
 	def place_block(self):
 		place_x = int(raw_input("Set x coordinate of block: "))
 		place_y = int(raw_input("Set y coordinate of block: "))
@@ -77,13 +75,19 @@ class Grid:
 		goal_x = int(raw_input("Set x coordinate of goal: "))
 		goal_y = int(raw_input("Set y coordinate of goal: "))
 		self.populate_grid(goal_x, goal_y, 'G')
-		return goal_x,goal_y
+		return goal_x, goal_y
+
+	def get_goal(self):
+		return self.goal_x, self.goal_y
 
 	def set_start(self):
 		start_x = int(raw_input("Set x coordinate of start: "))
 		start_y = int(raw_input("Set y coordinate of start: "))
 		self.populate_grid(start_x, start_y, 'S')
 		return start_x, start_y
+
+	def get_start:
+		return self.start_x, self.start_y
 
 	#Calculates the nth position from x and y coordinates
 	def calc_pos_grid(self,x, y):
@@ -100,12 +104,12 @@ class Grid:
 			position+=1
 			count_rows+=1
 		print ("position is: ", position)
-
+		return position
 
 	def draw_grid(self):
-		print "Here is the grid: \n"
+		print ("Here is the grid: \n")
 		for colIndex in range(self.row):
-			print str(self.grid[colIndex]).strip('[').strip(']')
+			print(str(self.grid[colIndex]).strip('[').strip(']'))
 
 	def populate_grid(self, pos_x,pos_y, character):
 		try:
@@ -118,7 +122,7 @@ class Grid:
 		except Exception as error:
 			print ("error: ", error)
 			exit(0)
-			
+
 	#Places a dot on the grid to show the astar path
 	def place_path(xylocation):
 		x,y = xylocation

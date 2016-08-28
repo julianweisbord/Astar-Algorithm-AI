@@ -24,9 +24,9 @@ class Astar:
 
 
 	#Adjusted manhattan heuristic
-	def heuristic(self,start,goal, current):
-		start_x,start_y =start
-		goal_x, goal_y =goal
+	def heuristic(self,startArr,goalArr, current):
+		start_x,start_y =startArr
+		goal_x, goal_y =goalArr
 		cur_x,cur_y = current
 
 		manhattan = abs(goal_x - start_x) + abs(goal_y - start_y)
@@ -38,7 +38,7 @@ class Astar:
 		dy2= goal_y -start_y
 		cross = abs(dx1*dy2 - dy1*dx2)
 
-		return (manhattan += cross*.0001)
+		return (manhattan + cross*.0001)
 
 	# Examines which vertex has the lowest f(n) = g(n) + h(n)
 	def astar_search(self,graph, start, goal):

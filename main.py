@@ -11,6 +11,9 @@ def main():
 
     matrix.draw_grid()
 
+    x, y = matrix.get_goal()
+    print("x: ", x)
+
     block = '1'
     while block == '1':
         block = raw_input("Do you want to insert path blockades? (1 for yes, 0 for no): ")
@@ -19,9 +22,10 @@ def main():
             matrix.draw_grid()
 
     #instantiate astar class
-    #alg = astar.Astar(matrix.calc_pos_grid(matrix.goal_x, matrix.goal_y))
-    #goal = matrix.goal_x, matrix.goal_y
-    #start = matrix.start_x, matrix.start_y
+
+    #alg = astar.Astar()
+    #goal_x, goal_y = matrix.get_goal()
+    #start_x, start_y = matrix.get_start()
     #alg.astar_search(matrix,start,goal )
     return 0
 
