@@ -68,8 +68,23 @@ class Grid:
 		#call a function to make sure that it is possible to find the path
 		return place_x, place_y
 
-	#def current_pos(self,x_pos, y_pos):
-		#self.populate_grid(x_pos,y_pos, 'C')
+	# Put a 'C' in the current position of the algorithm on the grid.
+	# Also represents any previous positions with a '.'
+	def set_cur_pos(self,cur_pos):
+		x_pos, y_pos = cur_pos
+		validPos = self.populate_grid(x_pos,y_pos, 'C')
+		# try: # The following is untested!!!!!!!!!!!!!!!!!!1
+		# 	if validPos == True:
+		# 		for i in range self.row:
+		# 			for j in range self.col:
+		# 				if i != x_pos and j != y_pos:
+		# 					if self.grid[j][i] == 'C':
+		#
+		#
+		# 	else:
+		# 		print("Error with placement!!!!!!!!")
+		# except Exception as Err:
+		# 	print("Error", Err)
 
 	def set_goal(self):
 		goal_x = int(raw_input("Set x coordinate of goal: "))
@@ -86,7 +101,7 @@ class Grid:
 		self.populate_grid(start_x, start_y, 'S')
 		return start_x, start_y
 
-	def get_start:
+	def get_start(self):
 		return self.start_x, self.start_y
 
 	#Calculates the nth position from x and y coordinates
@@ -113,20 +128,24 @@ class Grid:
 
 	def populate_grid(self, pos_x,pos_y, character):
 		try:
-			if self.grid[pos_y-1][pos_x-1]!='0':
-				print ("cannot place a block here, exiting")
-				exit(0)
+			if self.grid[pos_y-1][pos_x-1]!='0' or self.grid[pos_y-1][pos_x-1] != 'C':
+				print ("Will not go here")
+				return False
 			self.grid[pos_y-1][pos_x-1] = character
 
 			self.calc_pos_grid(pos_x, pos_y)# single number for position
+
 		except Exception as error:
 			print ("error: ", error)
 			exit(0)
 
+		return True
+
 	#Places a dot on the grid to show the astar path
 	def place_path(xylocation):
-		x,y = xylocation
-		assert(self.grid[pos_y-1][pos_x-1]!='X')
+		x, y = xylocation
+		if self.grid[pos_y-1][pos_x-1]=='X':
+			return False
 		if self.grid[y-1][x-1] == 'G':
 			print("Found Goal!")
 			return

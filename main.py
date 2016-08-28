@@ -11,9 +11,6 @@ def main():
 
     matrix.draw_grid()
 
-    x, y = matrix.get_goal()
-    print("x: ", x)
-
     block = '1'
     while block == '1':
         block = raw_input("Do you want to insert path blockades? (1 for yes, 0 for no): ")

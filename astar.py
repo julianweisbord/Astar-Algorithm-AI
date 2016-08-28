@@ -46,4 +46,9 @@ class Astar:
 		print("Should be start val: ", current)
 
 		while self.frontier.len() >0:
-			pass
+
+			foundGoal =graph.place_path(current)
+			if foundGoal == True:
+				break
+
+				
