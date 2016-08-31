@@ -19,7 +19,8 @@ class Astar:
 
 		heapq.heapify(self.frontier)
 		heapq.push(self.frontier, (0, start)) # Heapq can take tuples for priority (priority, task)
-		self.node_cost[start] =0
+		self.cost[start] =0
+		self.cost[start] = None
 
 
 
@@ -54,4 +55,8 @@ class Astar:
 				break
 
 			for vertex in graph.neighbors(current):
-				pass
+				gcost = self.cost[current] + graph.cost(current, vertex)
+				#if vertex is not in self.cost, default value is near infinity
+				if gcost < self.cost.get(vertex, 1000000): # if current gscore + movement cost < vertex gscore:
+					cost[vertex] = gcost
+					priority = gcost + self.heuristic(start, goal, current)

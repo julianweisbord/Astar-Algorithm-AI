@@ -52,6 +52,11 @@ class Grid:
 		# if self.grid[y-1][x+1] != None:
 		# 	edges[SE] =self.grid[y-1][x+1]
 
+		#Dont allow blocks to be vertices
+		for key, val in edges.items():
+			if val == 'X':
+				del myDict[key]
+
 		print("Edges dictonary: ", edges)
 		return edges
 
@@ -73,7 +78,7 @@ class Grid:
 	def set_cur_pos(self,cur_pos):
 		x_pos, y_pos = cur_pos
 		validPos = self.populate_grid(x_pos,y_pos, 'C')
-	
+
 
 	def set_goal(self):
 		goal_x = int(raw_input("Set x coordinate of goal: "))
@@ -117,7 +122,7 @@ class Grid:
 
 	def populate_grid(self, pos_x,pos_y, character):
 		try:
-			if self.grid[pos_y-1][pos_x-1]!='0' or self.grid[pos_y-1][pos_x-1] != 'C':
+			if self.grid[pos_y-1][pos_x-1]!='0':
 				print ("Will not go here")
 				return False
 			self.grid[pos_y-1][pos_x-1] = character
