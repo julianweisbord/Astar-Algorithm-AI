@@ -142,6 +142,8 @@ class Grid:
 			return False
 		if self.grid[y-1][x-1] == 'G':
 			print("Found Goal!")
-			return
+			return True
 		else:
 			self.grid[y-1][x-1] = '.'
+
+		return False
