@@ -6,21 +6,35 @@ class Grid:
 	grid = []
 	edges = {}
 
-	def __init__(self):
+	def __init__(self, arg):
+		if str(arg) == "def":
+			self.defaultArgs()
+		else:
+			x,y = self.init_grid()
+			self.row =x
+			self.col = y
+			assert(x > 0 and y >0)
+			for i in range(self.row):
+				self.grid.append([])
+				for j in range(self.col):
+					self.grid[i].append('0')
+			print (self.grid)
 
-		x,y = self.init_grid()
-		self.row =x
-		self.col = y
-		assert(x > 0 and y >0)
+			self.goal_x, self.goal_y = self.set_goal()
+			self.start_x, self.start_y = self.set_start()
+			print("TESTING",self.grid[0])
+
+	def defaultArgs(self):
+		self.row = 6
+		self.col =6
 		for i in range(self.row):
 			self.grid.append([])
 			for j in range(self.col):
 				self.grid[i].append('0')
 		print (self.grid)
 
-		self.goal_x, self.goal_y = self.set_goal()
-		self.start_x, self.start_y = self.set_start()
-		print("TESTING",self.grid[0])
+		self.populate_grid(5, 5, 'G')
+		self.populate_grid(1, 1, 'S')
 
 	def init_grid(self):
 		x = int(raw_input("Enter grid rows: "))
@@ -136,7 +150,7 @@ class Grid:
 		return True
 
 	#Places a dot on the grid to show the astar path
-	def place_path(xylocation):
+	def place_path(self, xylocation):
 		x, y = xylocation
 		if self.grid[pos_y-1][pos_x-1]=='X':
 			return False

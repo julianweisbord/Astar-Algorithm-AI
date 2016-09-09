@@ -1,5 +1,6 @@
 import grid
 import astar
+import sys
 
 # Algorithm References:
 # http://www.redblobgames.com/pathfinding/a-star
@@ -7,8 +8,12 @@ import astar
 # https://en.wikipedia.org/wiki/A*_search_algorithm
 
 def main():
-    matrix = grid.Grid()
 
+    #Decide if default args have been set
+    if len(sys.argv) >1:
+        matrix = grid.Grid(sys.argv[1])
+    else:
+        matrix = grid.Grid(sys.argv[0])
 
     matrix.draw_grid()
 
@@ -21,10 +26,17 @@ def main():
 
     #instantiate astar class
 
-    #alg = astar.Astar()
-    #goal_x, goal_y = matrix.get_goal()
-    #start_x, start_y = matrix.get_start()
-    #alg.astar_search(matrix,start,goal )
+    goal_x, goal_y = matrix.get_goal()
+    start_x, start_y = matrix.get_start()
+
+    startTuple = matrix.start_x, matrix.start_y
+    goalTuple = matrix.goal_x, matrix.goal_y
+    alg = astar.Astar(startTuple,goalTuple)
+    print ("Astar algorithm........")
+    count = alg.astar_search(matrix,startTuple,goalTuple)
+    print("Number of steps taken: ", count)
+
+    matrix.draw_grid()
     return 0
 
 

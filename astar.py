@@ -44,9 +44,11 @@ class Astar:
 
 	# Examines which neighbor has the lowest f(n) = g(n) + h(n)
 	def astar_search(self,graph, start, goal):
-		while self.frontier.len() >0:
+		count = 0
+		while len(self.frontier) >0:
 			current = heapq.heappop(self.frontier)[1] #get lowest cost node
 			print("Current: ", current)
+			count+=1
 
 			foundGoal =graph.place_path(current)
 			if foundGoal == True:
@@ -61,3 +63,4 @@ class Astar:
 					priority = gcost + self.heuristic(start, goal, current) # set a node's priority in the open set.
 					self.frontier.heappush(neighbor, priority)
 					cameFrom[neighbor] = current
+		return count
