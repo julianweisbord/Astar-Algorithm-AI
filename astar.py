@@ -9,7 +9,7 @@ import heapq
 class Astar:
 	frontier = []#Discovered nodes that must be evaluated, list of node lists
 	cameFrom = {} #nodes already evaluated
-	cost = {} #neighbor is key, cost is value, holds temperary gcost at nodes
+	cost_so_far = {} #neighbor is key, cost is value, holds temperary gcost at nodes
 
 
 	def __init__(self,start, goal):
@@ -19,13 +19,13 @@ class Astar:
 
 		heapq.heapify(self.frontier)
 		heapq.heappush(self.frontier, (0, start)) # Heapq can take tuples for priority (priority, task)
-		self.cost[start] =0
+		self.cost_so_far[start] =0
 
 
 
 	#Adjusted manhattan heuristic
 	def heuristic(self,startArr,goalArr, current):
-		print(current)
+		print("In heuristic currentL ", current)
 
 		start_x,start_y =startArr
 		goal_x, goal_y =goalArr
@@ -53,14 +53,16 @@ class Astar:
 			foundGoal =graph.place_path(current)
 			if foundGoal == True:
 				break
+			elif foundGoal == None:
+				continue # test this
 
-			for neighbor in graph.neighbors(current):
-				gcost = self.cost[current] + graph.cost(current, neighbor)
-				#if neighbor is not in self.cost, default value is near infinity
-				if neighbor not in self.cost or gcost < self.cost[neighbor]: #neighbor might be in cost{} with a higher cost value
+			for neighbor in graph.neighbors(current).iteritems():
+				gcost = self.cost_so_far[current] + graph.cost(current, neighbor[1]) # neighbors[1] is the tuple
+				#if neighbor is not in self.cost_so_far, default value is near infinity
+				if neighbor not in self.cost_so_far or gcost < self.cost_so_far[neighbor]: #neighbor might be in cost{} with a higher cost value
 				#which means we will have to replace it with the new value
-					self.cost[neighbor] = gcost #update neighbor gscore to be the smaller cost
-					priority = gcost + self.heuristic(start, goal, current) # set a node's priority in the open set.
-					self.frontier.heappush(neighbor, priority)
-					cameFrom[neighbor] = current
+					self.cost_so_far[neighbor] = gcost #update neighbor gscore to be the smaller cost
+					priority = gcost + self.heuristic(self.start, self.goal, current) # set a node's priority in the open set.
+					heapq.heappush(self.frontier,(priority,neighbor))
+					self.cameFrom[neighbor] = current
 		return count

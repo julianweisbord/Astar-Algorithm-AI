@@ -9,6 +9,8 @@ class Grid:
 	def __init__(self, arg):
 		if str(arg) == "def":
 			self.defaultArgs()
+			self.goal_x, self.goal_y = (5,5)
+			self.start_x, self.start_y = (1,1)
 		else:
 			x,y = self.init_grid()
 			self.row =x
@@ -48,23 +50,23 @@ class Grid:
 		x,y = position_list
 		assert(x!= None and y!= None)
 
-		if self.grid[y+1][x] != None:
-			egdes[up] = self.grid[y+1][x]
-		if self.grid[y][x+1] != None:
-			egdes[right] = self.grid[y][x+1]
 		if self.grid[y][x-1] != None:
-			egdes[left] = self.grid[y][x-1]
+			edges['up'] = x, y+1
 		if self.grid[y-1][x] != None:
-			egdes[down] = self.grid[y-1][x]
+			edges['right'] = x+1, y
+		if self.grid[y-1][x-2] != None:
+			edges['left'] = x-1, y
+		if self.grid[y-2][x-1] != None:
+			edges['down'] = x, y-1
 		#add diagnols
 		# if self.grid[y+1][x+1] != None:
-		# 	edges[NE] = self.grid[y+1][x+1]
+		# 	edges['NE'] = self.grid[y+1][x+1]
 		# if self.grid[y+1][x-1] != None:
-		# 	edges[NW] =self.grid[y+1][x-1]
+		# 	edges['NW'] =self.grid[y+1][x-1]
 		# if self.grid[y-1][x-1] != None:
-		# 	edges[SW] =self.grid[y-1][x-1]
+		# 	edges['SW'] =self.grid[y-1][x-1]
 		# if self.grid[y-1][x+1] != None:
-		# 	edges[SE] =self.grid[y-1][x+1]
+		# 	edges['SE'] =self.grid[y-1][x+1]
 
 		#Dont allow blocks to be vertices
 		for key, val in edges.items():
@@ -152,8 +154,8 @@ class Grid:
 	#Places a dot on the grid to show the astar path
 	def place_path(self, xylocation):
 		x, y = xylocation
-		if self.grid[pos_y-1][pos_x-1]=='X':
-			return False
+		if self.grid[y-1][x-1]=='X':
+			return None
 		if self.grid[y-1][x-1] == 'G':
 			print("Found Goal!")
 			return True
