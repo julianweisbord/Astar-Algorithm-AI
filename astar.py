@@ -23,9 +23,9 @@ class Astar:
 
 
 
-	#Adjusted manhattan heuristic
+	#Adjusted manhattan heuristic h(n)
 	def heuristic(self,startArr,goalArr, current):
-		print("In heuristic currentL ", current)
+		print("In heuristic current: ", current)
 
 		start_x,start_y =startArr
 		goal_x, goal_y =goalArr
@@ -57,12 +57,12 @@ class Astar:
 				continue # test this
 
 			for neighbor in graph.neighbors(current).iteritems():
-				gcost = self.cost_so_far[current] + graph.cost(current, neighbor[1]) # neighbors[1] is the tuple
+				gcost = self.cost_so_far[current] + graph.cost(current, neighbor[1]) # neighbor[1] is the tuple, problem with current
 				#if neighbor is not in self.cost_so_far, default value is near infinity
 				if neighbor not in self.cost_so_far or gcost < self.cost_so_far[neighbor]: #neighbor might be in cost{} with a higher cost value
 				#which means we will have to replace it with the new value
 					self.cost_so_far[neighbor] = gcost #update neighbor gscore to be the smaller cost
 					priority = gcost + self.heuristic(self.start, self.goal, current) # set a node's priority in the open set.
-					heapq.heappush(self.frontier,(priority,neighbor))
+					heapq.heappush(self.frontier,(priority,neighbor[1]))
 					self.cameFrom[neighbor] = current
 		return count

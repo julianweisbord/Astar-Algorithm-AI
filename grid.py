@@ -13,7 +13,7 @@ class Grid:
 			self.start_x, self.start_y = (1,1)
 		else:
 			x,y = self.init_grid()
-			self.row =x
+			self.row = x
 			self.col = y
 			assert(x > 0 and y >0)
 			for i in range(self.row):
@@ -25,7 +25,7 @@ class Grid:
 			self.goal_x, self.goal_y = self.set_goal()
 			self.start_x, self.start_y = self.set_start()
 			print("TESTING",self.grid[0])
-
+	# For debugging
 	def defaultArgs(self):
 		self.row = 6
 		self.col =6
@@ -50,15 +50,27 @@ class Grid:
 		x,y = position_list
 		assert(x!= None and y!= None)
 
+		# if self.grid[y][x-1] != None:
+		# 	edges['up'] = x, y+1
+		# if self.grid[y-1][x] != None:
+		# 	edges['right'] = x+1, y
+		# if self.grid[y-1][x-2] != None:
+		# 	edges['left'] = x-1, y
+		# if self.grid[y-2][x-1] != None:
+		# 	edges['down'] = x, y-1
 		if self.grid[y][x-1] != None:
-			edges['up'] = x, y+1
+			if (x and (y+1)) > 0:
+				edges['up'] = x, y+1
 		if self.grid[y-1][x] != None:
-			edges['right'] = x+1, y
+			if (y and (x+1)) > 0:
+				edges['right'] = x+1, y
 		if self.grid[y-1][x-2] != None:
-			edges['left'] = x-1, y
+			if (y and (x-1)) > 0:
+				edges['left'] = x-1, y
 		if self.grid[y-2][x-1] != None:
-			edges['down'] = x, y-1
-		#add diagnols
+			if (x and (y-1)) > 0:
+				edges['down'] = x, y-1
+	#add diagnols
 		# if self.grid[y+1][x+1] != None:
 		# 	edges['NE'] = self.grid[y+1][x+1]
 		# if self.grid[y+1][x-1] != None:
@@ -77,10 +89,11 @@ class Grid:
 		return edges
 
 	def cost(self, cur_pos, next_pos):
-		# doesn't have functionality for diagnols
+
 		x1, y1 = cur_pos
 		x2, y2 = next_pos
-		return BLOCK_DIST *(abs(x2 - x1) + abs(y2 -y1))
+		#functionality for diagnols too.
+		return BLOCK_DIST *((abs(x2 - x1) + abs(y2 -y1))**.5)
 
 	def place_block(self):
 		place_x = int(raw_input("Set x coordinate of block: "))
@@ -90,7 +103,7 @@ class Grid:
 		return place_x, place_y
 
 	# Put a 'C' in the current position of the algorithm on the grid.
-	# Also represents any previous positions with a '.'
+	# Also represents any previous positions with a '.' by calling populate_grid()
 	def set_cur_pos(self,cur_pos):
 		x_pos, y_pos = cur_pos
 		validPos = self.populate_grid(x_pos,y_pos, 'C')
