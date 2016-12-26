@@ -5,6 +5,7 @@ import sys
 
 # Algorithm References:
 # http://www.redblobgames.com/pathfinding/a-star
+# http://www.redblobgames.com/pathfinding/a-star/introduction.html
 # http://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
 # https://en.wikipedia.org/wiki/A*_search_algorithm
 
@@ -33,7 +34,7 @@ def main():
     startTuple = matrix.start_x, matrix.start_y
     goalTuple = matrix.goal_x, matrix.goal_y
     alg = astar.Astar(startTuple,goalTuple)
-    print ("Astar algorithm........")
+    print ("Astar algorithm........\n")
     count = alg.astar_search(matrix,startTuple,goalTuple)
     print("Number of steps taken: ", count)
 

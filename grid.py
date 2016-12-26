@@ -58,18 +58,29 @@ class Grid:
 		# 	edges['left'] = x-1, y
 		# if self.grid[y-2][x-1] != None:
 		# 	edges['down'] = x, y-1
-		if self.grid[y][x-1] != None:
-			if (x and (y+1)) > 0:
-				edges['up'] = x, y+1
-		if self.grid[y-1][x] != None:
-			if (y and (x+1)) > 0:
-				edges['right'] = x+1, y
-		if self.grid[y-1][x-2] != None:
-			if (y and (x-1)) > 0:
-				edges['left'] = x-1, y
-		if self.grid[y-2][x-1] != None:
-			if (x and (y-1)) > 0:
-				edges['down'] = x, y-1
+
+		if len(self.grid) >= y: #Make sure that we haven't gone out of range
+			if len(self.grid[y]) >= x-1:
+				if (x and (y+1)) > 0:
+					print "x index", x-1
+					print "y index", y
+					edges['up'] = x, y+1
+
+		if len(self.grid) >= y-1: #Make sure that we haven't gone out of range
+			if len(self.grid[y]) >= x:
+				if (y and (x+1)) > 0:
+					print "y index", y-1
+					edges['right'] = x+1, y
+		if len(self.grid) >= y-1: #Make sure that we haven't gone out of range
+			if len(self.grid[y]) >= x-2:
+				if (y and (x-1)) > 0:
+					print "y index", y-1
+					edges['left'] = x-1, y
+		if len(self.grid) >= y-2: #Make sure that we haven't gone out of range
+			if len(self.grid[y]) >= x-1:
+				if (x and (y-1)) > 0:
+					print "y index", y-2
+					edges['down'] = x, y-1
 	#add diagnols
 		# if self.grid[y+1][x+1] != None:
 		# 	edges['NE'] = self.grid[y+1][x+1]
@@ -89,11 +100,12 @@ class Grid:
 		return edges
 
 	def cost(self, cur_pos, next_pos):
-
-		x1, y1 = cur_pos
-		x2, y2 = next_pos
-		#functionality for diagnols too.
-		return BLOCK_DIST *((abs(x2 - x1) + abs(y2 -y1))**.5)
+		print "next_pos ", next_pos
+		(x1, y1) = cur_pos
+		(x2, y2) = next_pos
+		#functionality for diagnals too.
+		print "Cost going in: ", BLOCK_DIST *( ((x2 - x1)**2 + (y2 -y1)**2)**.5 )
+		return BLOCK_DIST *( ((x2 - x1)**2 + (y2 -y1)**2)**.5 )
 
 	def place_block(self):
 		place_x = int(raw_input("Set x coordinate of block: "))
