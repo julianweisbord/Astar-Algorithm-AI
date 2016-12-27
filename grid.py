@@ -50,15 +50,6 @@ class Grid:
 		x,y = position_list
 		assert(x!= None and y!= None)
 
-		# if self.grid[y][x-1] != None:
-		# 	edges['up'] = x, y+1
-		# if self.grid[y-1][x] != None:
-		# 	edges['right'] = x+1, y
-		# if self.grid[y-1][x-2] != None:
-		# 	edges['left'] = x-1, y
-		# if self.grid[y-2][x-1] != None:
-		# 	edges['down'] = x, y-1
-
 		if len(self.grid) >= y: #Make sure that we haven't gone out of range
 			if len(self.grid[y]) >= x-1:
 				if (x and (y+1)) > 0:
@@ -82,14 +73,25 @@ class Grid:
 					print "y index", y-2
 					edges['down'] = x, y-1
 	#add diagnols
-		# if self.grid[y+1][x+1] != None:
-		# 	edges['NE'] = self.grid[y+1][x+1]
-		# if self.grid[y+1][x-1] != None:
-		# 	edges['NW'] =self.grid[y+1][x-1]
-		# if self.grid[y-1][x-1] != None:
-		# 	edges['SW'] =self.grid[y-1][x-1]
-		# if self.grid[y-1][x+1] != None:
-		# 	edges['SE'] =self.grid[y-1][x+1]
+		# if len(self.grid) >= y: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) >= x:
+		# 		if ((y+1) and (x+1)) > 0:
+		# 			edges['NE'] =y+1,x+1
+		#
+		# if len(self.grid) >= y: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) >= x-2:
+		# 		if ((y+1) and (x-1)) > 0:
+		# 			edges['NW'] =y+1,x-1
+		#
+		# if len(self.grid) >= y-2: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) >= x-2:
+		# 		if ((y-1) and (x-1)) > 0:
+		# 			edges['SW'] =y-1,x-1
+		# # if self.grid[y-1][x+1] != None:
+		# if len(self.grid) >= y-2: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) >= x:
+		# 		if ((y-1) and (x+1)) > 0:
+		# 			edges['SE'] =y-1,x+1
 
 		#Dont allow blocks to be vertices
 		for key, val in edges.items():

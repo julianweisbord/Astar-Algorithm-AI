@@ -35,8 +35,8 @@ class Astar:
 		manhattan = abs(goal_x - next_x) + abs(goal_y - next_y)
 		#Adjusted for tie breakers, heuristic will favor straight line paths to goal
 		#change in position
-		dx1= cur_x - goal_x
-		dy1= cur_y - goal_y
+		dx1= next_x - goal_x
+		dy1= next_y - goal_y
 		dx2= start_x -goal_x
 		dy2= start_y - goal_y
 		cross = abs(dx1*dy2 - dy1*dx2)
@@ -70,4 +70,4 @@ class Astar:
 					heapq.heappush(self.frontier,(priority,neighbor[1]))
 					print "Frontier: ", self.frontier
 					self.cameFrom[neighbor] = current
-		return count
+		return count-1
