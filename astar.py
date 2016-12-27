@@ -24,14 +24,15 @@ class Astar:
 
 
 	#Adjusted manhattan heuristic h(n)
-	def heuristic(self,startArr,goalArr, current):
+	def heuristic(self,startArr,goalArr, current, neighborTup):
 		print("In heuristic current, start, goal: ", current, startArr, goalArr)
 
 		start_x,start_y =startArr
 		goal_x, goal_y =goalArr
-		cur_x,cur_y = current
+		cur_x, cur_y = current
+		next_x, next_y = neighborTup
 
-		manhattan = abs(goal_x - cur_x) + abs(goal_y - cur_y)
+		manhattan = abs(goal_x - next_x) + abs(goal_y - next_y)
 		#Adjusted for tie breakers, heuristic will favor straight line paths to goal
 		#change in position
 		dx1= cur_x - goal_x
@@ -48,7 +49,7 @@ class Astar:
 		count = 0
 		while len(self.frontier) >0:
 			current = heapq.heappop(self.frontier)[1] #get lowest cost node
-			print "Current: ", current
+			print "\n Current: ", current, "\n"
 			count+=1
 
 			foundGoal =graph.place_path(current)
@@ -65,7 +66,7 @@ class Astar:
 				if neighbor not in self.cost_so_far or gcost < self.cost_so_far[neighbor]: #neighbor might be in cost{} with a higher cost value
 				#which means we will have to replace it with the new value
 					self.cost_so_far[neighbor[1]] = gcost #update neighbor gscore to be the smaller cost
-					priority = gcost + self.heuristic(self.start, self.goal, current) # set a node's priority in the open set.
+					priority = gcost + self.heuristic(self.start, self.goal, current, neighbor[1]) # set a node's priority in the open set.
 					heapq.heappush(self.frontier,(priority,neighbor[1]))
 					print "Frontier: ", self.frontier
 					self.cameFrom[neighbor] = current
