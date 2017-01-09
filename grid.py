@@ -1,6 +1,6 @@
-#Distance global variable
-BLOCK_DIST = 1
 
+BLOCK_DIST = 1
+MAX_MOVE = (2**.5)* BLOCK_DIST
 class Grid:
 
 	grid = []
@@ -9,12 +9,13 @@ class Grid:
 	def __init__(self, arg):
 		if str(arg) == "def":
 			self.defaultArgs()
-			self.goal_x, self.goal_y = (5,5)
+			self.goal_x, self.goal_y = (4,4)
 			self.start_x, self.start_y = (1,1)
 		else:
 			x,y = self.init_grid()
 			self.row = x
 			self.col = y
+
 			assert(x > 0 and y >0)
 			for i in range(self.row):
 				self.grid.append([])
@@ -35,7 +36,7 @@ class Grid:
 				self.grid[i].append('0')
 		print (self.grid)
 
-		self.populate_grid(5, 5, 'G')
+		self.populate_grid(4, 4, 'G')
 		self.populate_grid(1, 1, 'S')
 
 	def init_grid(self):
@@ -45,61 +46,131 @@ class Grid:
 
 	#Put adgacent values in dictionary
 
-	def neighbors(self,position_list):
-		edges = {}
+	# def neighbors(self,position_list):
+	# 	edges = {}
+	# 	x,y = position_list
+	#
+	# 	assert(x!= None and y!= None)
+	# 	# -1 from y because self.grid[y] is 1 larger than y
+	# 	if len(self.grid) > y+1: #Make sure that we haven't gone out of range
+	# 		if len(self.grid[y]) >= x+1:
+	# 			if (x and (y+1)) > 0:
+	# 				print "x index", x-1
+	# 				print "y index", y
+	# 				edges['up'] = x, y+1
+	#
+	# 	if len(self.grid) >= y+1: #Make sure that we haven't gone out of range
+	# 		if len(self.grid[y]) > x:
+	# 			if (y and (x+1)) > 0:
+	# 				print "y index", y-1
+	# 				edges['right'] = x+1, y
+	# 	if len(self.grid) >= y+1: #Make sure that we haven't gone out of range
+	# 		if len(self.grid[y]) >= x+1:
+	# 			if (y and (x-1)) >= 0:
+	# 				print "y index", y-1
+	# 				edges['left'] = x-1, y
+	# 	if len(self.grid) >= y+1: #Make sure that we haven't gone out of range
+	# 		if len(self.grid[y]) >= x+1:
+	# 			if (x and (y-1)) >= 0:
+	# 				print "y index", y-2
+	# 				edges['down'] = x, y-1
+	# #add diagnols
+	# 	# if len(self.grid) > y-1: #Make sure that we haven't gone out of range
+	# 	# 	if len(self.grid[y]) >= x:
+	# 	# 		if ((y+1) and (x+1)) > 0:
+	# 	# 			edges['NE'] =y+1,x+1
+	# 	#
+	# 	# if len(self.grid) > y-2: #Make sure that we haven't gone out of range
+	# 	# 	if len(self.grid[y]) >= x-2:
+	# 	# 		if ((y+1) and (x-1)) > 0:
+	# 	# 			edges['NW'] =y+1,x-1
+	# 	#
+	# 	# if len(self.grid) > y-2: #Make sure that we haven't gone out of range
+	# 	# 	if len(self.grid[y]) >= x-2:
+	# 	# 		if ((y-1) and (x-1)) > 0:
+	# 	# 			edges['SW'] =y-1,x-1
+	# 	# if len(self.grid) > y-3: #Make sure that we haven't gone out of range
+	# 	# 	if len(self.grid[y]) >= x:
+	# 	# 		if ((y-1) and (x+1)) > 0:
+	# 	# 			edges['SE'] =y-1,x+1
+	#
+	# 	#Dont allow blocks to be vertices
+	# 	for key, val in edges.items():
+	# 		if val == 'X':
+	# 			del myDict[key]
+	#
+	# 	print("Edges dictonary: ", edges)
+	# 	return edges
+	def neighbors(self, position_list):
+
 		x,y = position_list
+		count=0
 		assert(x!= None and y!= None)
+		#up, right, down, left, NW, NE, SE, SW
+		edges = [(x,y+1),(x+1, y), (x, y-1), (x-1, y), (x-1,y+1),(x+1,y+1),(x+1,y-1),(x-1,y-1)]
+		for pos in edges:
+			if pos[0] > position_list[0]:
+				#pop that
+				del pos
+			elif pos[1] > position_list[1]:
+				#pop that
+				del pos
+		print("Edges list: ", edges)		
+		return edges
 
-		if len(self.grid) >= y: #Make sure that we haven't gone out of range
-			if len(self.grid[y]) >= x-1:
-				if (x and (y+1)) > 0:
-					print "x index", x-1
-					print "y index", y
-					edges['up'] = x, y+1
 
-		if len(self.grid) >= y-1: #Make sure that we haven't gone out of range
-			if len(self.grid[y]) >= x:
-				if (y and (x+1)) > 0:
-					print "y index", y-1
-					edges['right'] = x+1, y
-		if len(self.grid) >= y-1: #Make sure that we haven't gone out of range
-			if len(self.grid[y]) >= x-2:
-				if (y and (x-1)) > 0:
-					print "y index", y-1
-					edges['left'] = x-1, y
-		if len(self.grid) >= y-2: #Make sure that we haven't gone out of range
-			if len(self.grid[y]) >= x-1:
-				if (x and (y-1)) > 0:
-					print "y index", y-2
-					edges['down'] = x, y-1
+
+		# # -1 from y because self.grid[y] is 1 larger than y
+		# if len(self.grid) > y+1: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) >= x+1:
+		# 		if (x and (y+1)) > 0:
+		# 			print "x index", x-1
+		# 			print "y index", y
+		# 			edges['up'] = x, y+1
+		#
+		# if len(self.grid) >= y+1: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) > x:
+		# 		if (y and (x+1)) > 0:
+		# 			print "y index", y-1
+		# 			edges['right'] = x+1, y
+		# if len(self.grid) >= y+1: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) >= x+1:
+		# 		if (y and (x-1)) >= 0:
+		# 			print "y index", y-1
+		# 			edges['left'] = x-1, y
+		# if len(self.grid) >= y+1: #Make sure that we haven't gone out of range
+		# 	if len(self.grid[y]) >= x+1:
+		# 		if (x and (y-1)) >= 0:
+		# 			print "y index", y-2
+		# 			edges['down'] = x, y-1
 	#add diagnols
-		# if len(self.grid) >= y: #Make sure that we haven't gone out of range
+		# if len(self.grid) > y-1: #Make sure that we haven't gone out of range
 		# 	if len(self.grid[y]) >= x:
 		# 		if ((y+1) and (x+1)) > 0:
 		# 			edges['NE'] =y+1,x+1
 		#
-		# if len(self.grid) >= y: #Make sure that we haven't gone out of range
+		# if len(self.grid) > y-2: #Make sure that we haven't gone out of range
 		# 	if len(self.grid[y]) >= x-2:
 		# 		if ((y+1) and (x-1)) > 0:
 		# 			edges['NW'] =y+1,x-1
 		#
-		# if len(self.grid) >= y-2: #Make sure that we haven't gone out of range
+		# if len(self.grid) > y-2: #Make sure that we haven't gone out of range
 		# 	if len(self.grid[y]) >= x-2:
 		# 		if ((y-1) and (x-1)) > 0:
 		# 			edges['SW'] =y-1,x-1
-		# # if self.grid[y-1][x+1] != None:
-		# if len(self.grid) >= y-2: #Make sure that we haven't gone out of range
+		# if len(self.grid) > y-3: #Make sure that we haven't gone out of range
 		# 	if len(self.grid[y]) >= x:
 		# 		if ((y-1) and (x+1)) > 0:
 		# 			edges['SE'] =y-1,x+1
 
 		#Dont allow blocks to be vertices
-		for key, val in edges.items():
-			if val == 'X':
-				del myDict[key]
+		# for key, val in edges.items():
+		# 	if val == 'X':
+		# 		del myDict[key]
 
-		print("Edges dictonary: ", edges)
-		return edges
+		# print("Edges list: ", edges)
+		# return edges
+
 
 	def cost(self, cur_pos, next_pos):
 		print "next_pos ", next_pos
@@ -165,15 +236,15 @@ class Grid:
 
 	def populate_grid(self, pos_x,pos_y, character):
 		try:
-			if self.grid[pos_y-1][pos_x-1]!='0':
+			if self.grid[pos_y][pos_x]!='0':
 				print ("Will not go here")
 				return False
-			self.grid[pos_y-1][pos_x-1] = character
+			self.grid[pos_y][pos_x] = character
 
 			self.calc_pos_grid(pos_x, pos_y)# single number for position
 
 		except Exception as error:
-			print ("error: ", error)
+			print ("The error: ", error)
 			exit(0)
 
 		return True
@@ -181,12 +252,12 @@ class Grid:
 	#Places a dot on the grid to show the astar path
 	def place_path(self, xylocation):
 		x, y = xylocation
-		if self.grid[y-1][x-1]=='X':
+		if self.grid[y][x]=='X':
 			return None
-		if self.grid[y-1][x-1] == 'G':
+		if self.grid[y][x] == 'G':
 			print("Found Goal!")
 			return True
 		else:
-			self.grid[y-1][x-1] = '.'
+			self.grid[y][x] = '.'
 
 		return False
