@@ -39,6 +39,7 @@ def main():
     print("Number of steps taken: ", count)
 
     matrix.draw_grid()
+    print "\n\n"
     return 0
 
 
