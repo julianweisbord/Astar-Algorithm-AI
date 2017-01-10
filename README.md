@@ -16,12 +16,12 @@ This implementation utilizes a 2D grid with the following characters:<br>
 
 Ex1: <br>
 
-(/images/before1.png?raw=true "Before") <br>
+![Before](/images/before1.png?raw=true) <br>
 
-(/images/after1.png?raw=true "Path") <br>
+![Path](/images/after1.png?raw=true) <br>
 
 Notice the algorithm takes the most ideal path around the blockades. <br>
 
-(/images/before2.png?raw=true "Before") <br>
+![Before](/images/before2.png?raw=true) <br>
 
-(/images/after2.png?raw=true "Path") <br>
+![Path](/images/after2.png?raw=true) <br>
