@@ -20,7 +20,7 @@ Ex1: <br>
 
 ![Path](/images/after1.png?raw=true) <br>
 
-Notice the algorithm takes the most ideal path around the blockades. <br>
+##Notice the algorithm takes the most ideal path around the blockades. <br>
 
 ![Before](/images/before2.png?raw=true) <br>
 
