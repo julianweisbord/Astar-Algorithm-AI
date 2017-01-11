@@ -14,13 +14,13 @@ This implementation utilizes a 2D grid with the following characters:<br>
 
 ##Example Runs:
 
-Ex1: <br>
+##Ex1: <br>
 
 ![Before](/images/before1.png?raw=true) <br>
 
 ![Path](/images/after1.png?raw=true) <br>
 
-##Notice the algorithm takes the most ideal path around the blockades. <br>
+##Ex2: Notice the algorithm takes the most ideal path around the blockades. <br>
 
 ![Before](/images/before2.png?raw=true) <br>
 
